@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :set_locale
 
   def index
-    @users = User.all
+    @users = User.where(tenant: Tenant.current) # Muestra solo usuarios del tenant actual
   end
 
   def new
@@ -14,11 +14,18 @@ class UsersController < ApplicationController
   end
 
   def create
+    # Generar una contraseña si no se proporciona
     generated_password = params[:user][:password].presence || SecureRandom.hex(8)
-    @user = User.new(user_params.merge(password: generated_password, password_confirmation: generated_password))
+
+    # Asignar el tenant actual al usuario
+    @user = User.new(user_params.merge(
+      password: generated_password,
+      password_confirmation: generated_password,
+      tenant: Tenant.current
+    ))
 
     if @user.save
-      send_user_created_email(@user, generated_password)  # Usar el método correcto
+      send_user_created_email(@user, generated_password)
       flash[:notice] = 'Usuario creado correctamente. Se ha enviado un correo al usuario.'
       redirect_to users_path
     else
@@ -31,13 +38,20 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
+    Rails.logger.debug "Parámetros recibidos para actualización: #{params[:user].inspect}"
+  
+    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+  
     if @user.update(user_params)
       send_user_updated_email(@user)
-      flash[:notice] = 'Usuario actualizado correctamente. Se ha enviado un correo al usuario.'
+      flash[:notice] = 'Usuario actualizado correctamente.'
       redirect_to users_path
     else
       flash.now[:alert] = 'Hubo un error al actualizar el usuario. Verifique los campos marcados.'
-      Rails.logger.debug("Errores al actualizar usuario: #{@user.errors.full_messages}")
+      Rails.logger.debug "Errores al actualizar usuario: #{@user.errors.full_messages}"
       render :edit
     end
   end
@@ -62,7 +76,7 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find_by(id: params[:id])
+    @user = User.where(tenant: Tenant.current).find_by(id: params[:id])
     redirect_to users_path, alert: 'Usuario no encontrado.' unless @user
   end
 

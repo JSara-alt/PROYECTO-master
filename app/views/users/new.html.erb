@@ -27,7 +27,7 @@
     <!-- Campo de Email -->
     <div class="mb-4">
       <%= form.label :email, 'Correo Electrónico', class: "form-label fw-bold text-dark" %>
-      <%= form.email_field :email, class: "form-control border-primary #{'is-invalid' if @user.errors[:email].any?}", placeholder: 'Ejemplo: usuario@example.com' %>
+      <%= form.email_field :email, class: "form-control border-primary #{'is-invalid' if @user.errors[:email].any?}", placeholder: 'Ejemplo: usuario@example.com', required: true %>
       <% @user.errors[:email].uniq.each do |error| %>
         <div class="invalid-feedback"><%= error %></div>
       <% end %>
@@ -36,7 +36,7 @@
     <!-- Campo de Contraseña -->
     <div class="mb-4">
       <%= form.label :password, 'Contraseña', class: "form-label fw-bold text-dark" %>
-      <%= form.password_field :password, class: "form-control border-primary #{'is-invalid' if @user.errors[:password].any?}", placeholder: 'Ingrese una contraseña' %>
+      <%= form.password_field :password, class: "form-control border-primary #{'is-invalid' if @user.errors[:password].any?}", placeholder: 'Ingrese una contraseña', required: true %>
       <% @user.errors[:password].uniq.each do |error| %>
         <div class="invalid-feedback"><%= error %></div>
       <% end %>
@@ -45,7 +45,7 @@
     <!-- Campo de Confirmación de Contraseña -->
     <div class="mb-4">
       <%= form.label :password_confirmation, 'Confirmar Contraseña', class: "form-label fw-bold text-dark" %>
-      <%= form.password_field :password_confirmation, class: "form-control border-primary #{'is-invalid' if @user.errors[:password_confirmation].any?}", placeholder: 'Confirme la contraseña' %>
+      <%= form.password_field :password_confirmation, class: "form-control border-primary #{'is-invalid' if @user.errors[:password_confirmation].any?}", placeholder: 'Confirme la contraseña', required: true %>
       <% @user.errors[:password_confirmation].uniq.each do |error| %>
         <div class="invalid-feedback"><%= error %></div>
       <% end %>
@@ -54,7 +54,7 @@
     <!-- Campo de Rol -->
     <div class="mb-4">
       <%= form.label :role, 'Rol del Usuario', class: "form-label fw-bold text-dark" %>
-      <%= form.select :role, User.roles.keys.map { |role| [role.titleize, role] }, {}, class: "form-select border-primary #{'is-invalid' if @user.errors[:role].any?}" %>
+      <%= form.select :role, User.roles.keys.map { |role| [role.titleize, role] }, {}, class: "form-select border-primary #{'is-invalid' if @user.errors[:role].any?}", required: true %>
       <% @user.errors[:role].uniq.each do |error| %>
         <div class="invalid-feedback"><%= error %></div>
       <% end %>

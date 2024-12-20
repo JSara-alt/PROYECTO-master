@@ -31,7 +31,7 @@
     <!-- Campo de Correo Electrónico -->
     <div class="mb-4">
       <%= form.label :email, 'Correo Electrónico', class: "form-label fw-bold text-dark" %>
-      <%= form.email_field :email, class: "form-control border-primary", placeholder: 'Ejemplo: usuario@example.com' %>
+      <%= form.email_field :email, class: "form-control border-primary", placeholder: 'Ejemplo: usuario@example.com', required: true %>
     </div>
 
     <!-- Campo de Contraseña -->
@@ -49,7 +49,7 @@
     <!-- Campo de Rol -->
     <div class="mb-4">
       <%= form.label :role, 'Rol del Usuario', class: "form-label fw-bold text-dark" %>
-      <%= form.select :role, User.roles.keys.map { |role| [role.titleize, role] }, {}, class: "form-select border-primary" %>
+      <%= form.select :role, User.roles.keys.map { |role| [role.titleize, role] }, {}, class: "form-select border-primary", required: true %>
     </div>
 
     <!-- Botones -->
