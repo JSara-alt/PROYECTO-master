@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgot Password</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .forgot-password-container {
+      background-color: #e8f5e9; /* Light green */
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      text-align: center;
+    }
+
+    .forgot-password-container h2 {
+      color: #66bb6a; /* Green */
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .forgot-password-container .field {
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .forgot-password-container .field label {
+      display: block;
+      font-weight: bold;
+      color: #4caf50; /* Green */
+      margin-bottom: 5px;
+    }
+
+    .forgot-password-container .field input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background-color: #f9f9f9;
+      box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.1),
+                  inset -4px -4px 8px rgba(255, 255, 255, 0.7);
+    }
+
+    .forgot-password-container .field input:focus {
+      outline: none;
+      box-shadow: 0 0 5px rgba(102, 187, 106, 0.8);
+    }
+
+    .forgot-password-container .error-message {
+      color: #ff0000; /* Red */
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .forgot-password-container .actions input[type="submit"] {
+      background-color: #66bb6a;
+      color: white;
+      font-weight: bold;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      cursor: pointer;
+      box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2),
+                  -4px -4px 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .forgot-password-container .actions input[type="submit"]:hover {
+      background-color: #4caf50;
+      box-shadow: 0 0 10px rgba(76, 175, 80, 0.8);
+    }
+
+    .forgot-password-container .links {
+      margin-top: 20px;
+    }
+
+    .forgot-password-container .links a {
+      color: #66bb6a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .forgot-password-container .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="forgot-password-container">
+    <h2>Forgot your password?</h2>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Enter your email" %>
+
+        <!-- Mostrar los mensajes de error debajo del campo -->
+        <% if resource.errors[:email].present? %>
+          <% resource.errors[:email].each do |message| %>
+            <div class="error-message">
+              <%= message %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Send me reset password instructions" %>
+      </div>
+    <% end %>
+
+    <div class="links">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</body>
+</html>

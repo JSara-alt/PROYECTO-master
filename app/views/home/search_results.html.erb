@@ -1,0 +1,19 @@
+<h1 class="text-center text-primary">Resultados de la Búsqueda</h1>
+
+<% if @samples.present? %>
+  <div class="row">
+    <% @samples.each do |sample| %>
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img src="<%= asset_path('placeholder.jpg') rescue 'https://via.placeholder.com/300x200' %>" alt="Imagen de muestra" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title text-center"><%= sample.code %></h5>
+            <p class="card-text"><%= truncate(sample.results, length: 100) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-center text-muted">No se encontraron resultados para la búsqueda.</p>
+<% end %>

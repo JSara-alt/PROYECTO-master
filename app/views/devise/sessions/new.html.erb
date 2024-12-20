@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #f0f9f0; /* Verde muy claro */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #ecf7ec; /* Verde claro */
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white; /* Sombras neumórficas */
+      text-align: center;
+      width: 400px;
+    }
+
+    .login-container .form-icon {
+      background-color: #ffffff; /* Fondo blanco */
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px #ffffff; /* Sombras para el círculo */
+    }
+
+    .login-container .form-icon img {
+      width: 60%; /* Tamaño de la imagen */
+      height: 60%;
+    }
+
+    .login-container h2 {
+      color: #4caf50; /* Verde */
+      font-weight: bold;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+    }
+
+    .login-container .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .login-container .form-group label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #388e3c; /* Verde más oscuro */
+      text-transform: uppercase;
+    }
+
+    .login-container .form-control {
+      width: 100%;
+      padding: 15px;
+      border-radius: 50px; /* Bordes redondeados */
+      border: none;
+      background-color: #ecf7ec;
+      box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px #ffffff; /* Sombras internas */
+    }
+
+    .login-container .form-control:focus {
+      outline: none;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.8); /* Resaltado al hacer focus */
+    }
+
+    .login-container .form-check {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      margin-bottom: 20px;
+    }
+
+    .login-container .form-check-input {
+      margin-right: 10px;
+    }
+
+    .login-container .btn {
+      background-color: #4caf50; /* Verde */
+      color: white;
+      font-weight: bold;
+      padding: 12px;
+      border: none;
+      border-radius: 50px; /* Botón redondeado */
+      width: 100%;
+      cursor: pointer;
+      box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px #ffffff; /* Sombras para el botón */
+      transition: all 0.3s ease;
+    }
+
+    .login-container .btn:hover {
+      background-color: #66bb6a; /* Verde más claro */
+      box-shadow: none; /* Elimina sombras al hacer hover */
+    }
+
+    .login-container .forgot-password {
+      display: block;
+      margin-top: 15px;
+      color: #4caf50; /* Verde */
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .login-container .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    .login-container .form-check-label {
+      font-size: 14px;
+      color: #388e3c; /* Verde más oscuro */
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <!-- Icono de Usuario -->
+    <div class="form-icon">
+      <%= image_tag 'user_icon.png', alt: 'User Icon' %>
+    </div>
+
+    <!-- Título -->
+    <h2>LOGIN</h2>
+
+    <!-- Formulario -->
+    <%= form_with scope: :user, url: session_path(:user), local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :email, 'Email' %>
+        <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "email address" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, 'Password' %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "password" %>
+      </div>
+      <div class="form-check">
+        <%= f.check_box :remember_me, class: "form-check-input" %>
+        <%= f.label :remember_me, 'Remember me', class: "form-check-label" %>
+      </div>
+      <%= f.submit "LOGIN ", class: "btn" %>
+    <% end %>
+
+    <!-- Forgot password -->
+    <%= link_to 'Forgot your password?', new_user_password_path, class: "forgot-password" %>
+  </div>
+</body>
+
+
+</html>

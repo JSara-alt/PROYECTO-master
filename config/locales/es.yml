@@ -1,0 +1,23 @@
+es:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "El correo electrónico no puede estar vacío."
+              taken: "El correo electrónico ya está registrado."
+            password:
+              blank: "La contraseña no puede estar vacía."
+              too_short: "La contraseña debe tener al menos %{count} caracteres."
+            password_confirmation:
+              confirmation: "Las contraseñas no coinciden."
+            role:
+              blank: "El rol no puede estar vacío."
+              inclusion: "El rol seleccionado no es válido."
+  errors:
+    messages:
+      blank: "no puede estar vacío"
+      taken: "ya ha sido registrado"
+      confirmation: "no coincide con %{attribute}"
+      too_short: "es demasiado corto (mínimo %{count} caracteres)"

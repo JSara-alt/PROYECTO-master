@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Muestras</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <!-- Header con información del tenant -->
+    <% if Tenant.current %>
+      <h1 class="mb-4">Muestras para <%= Tenant.current.name %></h1>
+    <% else %>
+      <div class="alert alert-danger" role="alert">
+        <h1>No se encontró un tenant para este subdominio</h1>
+      </div>
+    <% end %>
+
+    <% if @samples.any? && Tenant.current %>
+      <!-- Tabla de Muestras -->
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Código</th>
+              <th>Resultados</th>
+              <th>Correo del Cliente</th>
+              <th>Correo del Laboratorista</th>
+              <% if current_user.laboratorista? %>
+                <th>Acciones</th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @samples.each do |sample| %>
+              <tr>
+                <td><%= sample.code %></td>
+                <td><%= sample.results %></td>
+                <td><%= sample.user&.email || 'No asignado' %></td>
+                <td><%= sample.laboratorista&.email || 'No asignado' %></td>
+                <% if current_user.laboratorista? %>
+                  <td class="d-flex">
+                    <!-- Botón Editar -->
+                    <%= link_to edit_sample_path(sample), class: "btn btn-primary btn-sm me-2", title: "Editar" do %>
+                      <i class="fas fa-edit"></i> Editar
+                    <% end %>
+
+                    <!-- Botón Eliminar -->
+                    <%= link_to sample_path(sample), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar esta muestra?' }, class: "btn btn-danger btn-sm", title: "Eliminar" do %>
+                      <i class="fas fa-trash"></i> Eliminar
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% elsif Tenant.current %>
+      <p class="text-center">No hay resultados disponibles para este tenant.</p>
+    <% end %>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

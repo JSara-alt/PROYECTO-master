@@ -1,0 +1,61 @@
+<h1 class="text-center text-primary mb-4">Editar Usuario</h1>
+
+<div class="container mt-4 shadow-lg p-5 bg-light rounded">
+  <!-- Mostrar mensajes flash -->
+  <% if flash[:notice] %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= flash[:notice] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% elsif flash[:alert] %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:alert] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <!-- Mostrar errores si los hay -->
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>Errores:</h4>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Formulario para editar el usuario -->
+  <%= form_with model: @user, local: true, method: :patch, class: "needs-validation" do |form| %>
+    <!-- Campo de Correo Electrónico -->
+    <div class="mb-4">
+      <%= form.label :email, 'Correo Electrónico', class: "form-label fw-bold text-dark" %>
+      <%= form.email_field :email, class: "form-control border-primary", placeholder: 'Ejemplo: usuario@example.com' %>
+    </div>
+
+    <!-- Campo de Contraseña -->
+    <div class="mb-4">
+      <%= form.label :password, 'Nueva Contraseña (opcional)', class: "form-label fw-bold text-dark" %>
+      <%= form.password_field :password, class: "form-control border-primary", placeholder: 'Dejar en blanco para no cambiar' %>
+    </div>
+
+    <!-- Campo de Confirmación de Contraseña -->
+    <div class="mb-4">
+      <%= form.label :password_confirmation, 'Confirmar Nueva Contraseña', class: "form-label fw-bold text-dark" %>
+      <%= form.password_field :password_confirmation, class: "form-control border-primary", placeholder: 'Confirme solo si cambia la contraseña' %>
+    </div>
+
+    <!-- Campo de Rol -->
+    <div class="mb-4">
+      <%= form.label :role, 'Rol del Usuario', class: "form-label fw-bold text-dark" %>
+      <%= form.select :role, User.roles.keys.map { |role| [role.titleize, role] }, {}, class: "form-select border-primary" %>
+    </div>
+
+    <!-- Botones -->
+    <div class="text-center">
+      <%= form.submit 'Actualizar Usuario', class: "btn btn-success px-4 py-2 fw-bold" %>
+      <%= link_to 'Volver a la Lista de Usuarios', users_path, class: "btn btn-secondary px-4 py-2 fw-bold ms-3" %>
+    </div>
+  <% end %>
+</div>

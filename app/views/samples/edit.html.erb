@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Muestra</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">Editar Muestra</h1>
+
+    <div class="container mt-4 shadow-lg p-5 bg-white rounded">
+      <!-- Formulario para editar la muestra -->
+      <%= form_with model: @sample, local: true do |form| %>
+        
+        <!-- Campo de Código de la Muestra -->
+        <div class="mb-4">
+          <%= form.label :code, 'Código de la Muestra', class: "form-label fw-bold text-dark" %>
+          <%= form.text_field :code, placeholder: 'Ejemplo: M001', class: "form-control border-primary" %>
+        </div>
+
+        <!-- Campo de Resultados -->
+        <div class="mb-4">
+          <%= form.label :results, 'Resultados', class: "form-label fw-bold text-dark" %>
+          <%= form.text_area :results, placeholder: 'Describe los resultados de la muestra...', class: "form-control border-primary" %>
+        </div>
+
+        <!-- Campo de Selección de Cliente -->
+        <div class="mb-4">
+          <%= form.label :user_id, 'Asignar a Cliente', class: "form-label fw-bold text-dark" %>
+          <%= form.collection_select :user_id, User.where(role: :cliente), :id, :email, prompt: 'Seleccione un cliente', class: "form-select border-primary" %>
+        </div>
+
+        <!-- Botón de Actualización -->
+        <div class="text-center">
+          <%= form.submit 'Actualizar Muestra', class: "btn btn-success px-4 py-2 fw-bold" %>
+        </div>
+        
+      <% end %>
+
+      <!-- Enlace de Volver a la lista -->
+      <div class="text-center mt-3">
+        <%= link_to 'Volver a la lista', samples_path, class: "btn btn-secondary px-4 py-2 fw-bold" %>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

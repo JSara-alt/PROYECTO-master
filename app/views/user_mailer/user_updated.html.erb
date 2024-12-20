@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .email-container {
+      background-color: #ffffff;
+      width: 600px;
+      margin: 20px auto;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .email-header {
+      background-color: #007bff;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+    }
+    .email-body {
+      padding: 20px;
+      color: #333333;
+      line-height: 1.6;
+    }
+    .email-footer {
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 10px;
+      font-size: 12px;
+      color: #777777;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="email-header">
+      <h1>Cuenta Actualizada</h1>
+    </div>
+    <div class="email-body">
+      <h2>Hola, <%= @user.email %>!</h2>
+      <p>Tu cuenta ha sido actualizada exitosamente.</p>
+      <p>Si no solicitaste este cambio, por favor contacta con soporte técnico.</p>
+    </div>
+    <div class="email-footer">
+      <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</body>
+</html>

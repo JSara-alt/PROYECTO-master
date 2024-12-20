@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio Central de Investigación</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <style>
+    /* Reinicio de estilos globales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    /* Barra de navegación */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      padding: 10px 40px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+    }
+
+    .navbar .logo img {
+      height: 50px;
+    }
+
+    .navbar .menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar .menu a {
+      text-decoration: none;
+      color: #0056b3;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .navbar .menu a:hover {
+      color: #003c82;
+    }
+
+    /* Buscador */
+    .navbar .search-bar {
+      position: relative;
+    }
+
+    .navbar .search-bar input {
+      border: 1px solid #4caf50;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .navbar .search-bar input::placeholder {
+      color: #aaa;
+    }
+
+    .navbar .search-bar button {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+      background-color: #4caf50;
+      border: none;
+      border-radius: 50%;
+      padding: 8px;
+      cursor: pointer;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .navbar .search-bar button:hover {
+      background-color: #388e3c;
+    }
+
+    .navbar .search-bar button i {
+      font-size: 1rem;
+    }
+
+    /* Carrusel ajustado */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .carousel-inner {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-item {
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+    }
+
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+
+    .control {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .carousel-indicators {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .indicator {
+      width: 15px;
+      height: 15px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .indicator.active {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Sección Quiénes Somos */
+    .section-title {
+      text-align: left;
+      margin: 40px auto 20px;
+      font-size: 2rem;
+      color: #4caf50;
+      font-weight: bold;
+      border-left: 5px solid #4caf50;
+      padding-left: 10px;
+      width: 90%;
+    }
+
+    .about-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding: 20px;
+      background: rgba(232, 245, 233, 0.9);
+      margin: 0 auto;
+      width: 90%;
+      border-radius: 10px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-container p {
+      text-align: justify;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .mission-vision-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .mission, .vision {
+      flex: 1;
+      padding: 20px;
+      border: 1px solid #4caf50;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .mission h3, .vision h3 {
+      font-size: 1.3rem;
+      color: #4caf50;
+      margin-bottom: 10px;
+      text-align: center;
+      border-bottom: 2px solid #4caf50;
+      padding-bottom: 5px;
+    }
+
+    .mission p, .vision p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      text-align: justify;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra de navegación -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="<%= asset_path('logo.png') %>" alt="Logo">
+    </div>
+    <nav class="menu">
+      <a href="#inicio">Inicio</a>
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar aquí...">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#areas-destacadas">Áreas Destacadas</a>
+      <a href="/users/sign_in">Login</a>
+    </nav>
+  </header>
+
+  <!-- Carrusel -->
+  <div class="carousel-container">
+    <div class="carousel-inner" id="carouselInner">
+      <div class="carousel-item">
+        <img src="<%= asset_path('imagen1.jpg') %>" alt="Imagen 1">
+      </div>
+      <div class="carousel-item">
+        <img src="<%= asset_path('imagen2.jpg') %>" alt="Imagen 2">
+      </div>
+      <div class="carousel-item">
+        <img src="<%= asset_path('imagen3.jpg') %>" alt="Imagen 3">
+      </div>
+    </div>
+    <!-- Controles -->
+    <div class="carousel-controls">
+      <button class="control" id="prevBtn">←</button>
+      <button class="control" id="nextBtn">→</button>
+    </div>
+    <!-- Indicadores -->
+    <div class="carousel-indicators" id="carouselIndicators">
+      <span class="indicator" data-slide-to="0"></span>
+      <span class="indicator" data-slide-to="1"></span>
+      <span class="indicator" data-slide-to="2"></span>
+    </div>
+  </div>
+
+  <!-- Sección Quiénes Somos -->
+  <section id="nosotros">
+    <h2 class="section-title">¿Quiénes somos?</h2>
+    <div class="about-container">
+      <p>El Vicerrectorado de Investigación es el encargado de orientar, coordinar y organizar los proyectos y actividades que se desarrollan a través de las diversas unidades académicas.</p>
+      <p>El VRI organiza la difusión del conocimiento y promueve la aplicación de los resultados de las investigaciones.</p>
+    </div>
+    <div class="mission-vision-container">
+      <div class="mission">
+        <h3>Misión</h3>
+        <p>El Vicerrectorado de Investigación tiene como misión coordinar, diseñar, gestionar y desarrollar la Política de Investigación.</p>
+      </div>
+      <div class="vision">
+        <h3>Visión</h3>
+        <p>Ser líderes en investigación de calidad generando información calificada y tecnologías apropiadas.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const carouselInner = document.getElementById('carouselInner');
+      const indicators = document.querySelectorAll('.indicator');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      let currentIndex = 0;
+
+      const updateCarousel = () => {
+        const width = carouselInner.children[0].offsetWidth;
+        carouselInner.style.transform = `translateX(-${currentIndex * width}px)`;
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle('active', index === currentIndex);
+        });
+      };
+
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : indicators.length - 1;
+        updateCarousel();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex < indicators.length - 1) ? currentIndex + 1 : 0;
+        updateCarousel();
+      });
+
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+          currentIndex = index;
+          updateCarousel();
+        });
+      });
+
+      // Inicializar el carrusel
+      updateCarousel();
+    });
+  </script>
+</body>
+</html>

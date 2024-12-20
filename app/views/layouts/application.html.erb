@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>App</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- Include the main stylesheet -->
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div class="container my-5">
+      <!-- Mostrar el botón de Cerrar sesión solo si el usuario está firmado -->
+      <% if user_signed_in? %>
+        <div class="d-flex justify-content-end">
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-sm' %>
+        </div>
+      <% end %>
+
+      <!-- Renderiza el contenido de las vistas -->
+      <%= yield %>
+    </div>
+  </body>
+</html>

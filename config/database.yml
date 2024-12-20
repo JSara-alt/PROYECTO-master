@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db # Esto indica que debe conectarse al servicio PostgreSQL en Docker
+  username: postgres
+  password: password
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: laboratorio_unas_development
+
+test:
+  <<: *default
+  database: laboratorio_unas_test
+
+production:
+  <<: *default
+  database: laboratorio_unas_production
